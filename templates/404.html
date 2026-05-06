@@ -1,0 +1,16 @@
+{{define "content"}}
+<section class="flex-1 flex items-center justify-center py-20">
+    <div class="text-center px-4">
+        <p class="font-serif-accent text-8xl md:text-9xl font-bold text-amber-600/30 select-none">404</p>
+        <h1 class="font-serif-accent text-2xl md:text-3xl font-bold text-stone-800 mt-4 mb-3">
+            {{if eq .Locale "de"}}Seite nicht gefunden{{else}}Page Not Found{{end}}
+        </h1>
+        <p class="text-stone-600 text-lg max-w-md mx-auto mb-8">
+            {{if eq .Locale "de"}}Die gesuchte Seite existiert leider nicht.{{else}}The page you are looking for does not exist.{{end}}
+        </p>
+        <a href="/" class="inline-block bg-amber-600 hover:bg-amber-700 text-white font-medium px-6 py-3 rounded-lg transition-colors shadow-sm">
+            {{.Labels.nav_home}}
+        </a>
+    </div>
+</section>
+{{end}}

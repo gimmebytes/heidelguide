@@ -137,7 +137,7 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
     - Use consistent Tailwind styling with landing page
     - _Requirements: 11.2, 11.3, 11.4, 11.6, 11.7_
 
-  - [~] 6.4 Create 404 error page template
+  - [x] 6.4 Create 404 error page template
     - Create `templates/404.html` with user-friendly error message
     - Include navigation back to home
     - _Requirements: 3.5, 11.5_

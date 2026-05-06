@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="{{.Locale}}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Labels.app_title}}</title>
+    <link rel="stylesheet" href="/static/css/tailwind.min.css">
+    <script src="/static/js/htmx.min.js"></script>
+    <script src="/static/js/alpine.min.js" defer></script>
+    <style>
+        .font-serif-accent {
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+    </style>
+</head>
+<body class="bg-amber-50 text-stone-800 min-h-screen flex flex-col">
+    <!-- Navigation -->
+    <nav class="bg-stone-800 text-amber-50 shadow-md">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="/" class="font-serif-accent text-xl font-bold tracking-wide text-amber-200 hover:text-amber-100 transition-colors">
+                Heidelberg Guide
+            </a>
+            <div class="flex items-center gap-4">
+                <form method="POST" action="/language" class="flex items-center gap-1">
+                    <button type="submit" name="locale" value="de"
+                        class="px-2 py-1 text-sm rounded transition-colors {{if eq .Locale "de"}}bg-amber-600 text-white font-semibold{{else}}bg-stone-700 text-stone-300 hover:bg-stone-600{{end}}">
+                        DE
+                    </button>
+                    <button type="submit" name="locale" value="en"
+                        class="px-2 py-1 text-sm rounded transition-colors {{if eq .Locale "en"}}bg-amber-600 text-white font-semibold{{else}}bg-stone-700 text-stone-300 hover:bg-stone-600{{end}}">
+                        EN
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1">
+        {{block "content" .}}{{end}}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-stone-800 text-stone-400 py-6 mt-12">
+        <div class="max-w-6xl mx-auto px-4 text-center text-sm">
+            <p class="font-serif-accent text-amber-200/70">&copy; 2024 Heidelberg Guide</p>
+        </div>
+    </footer>
+</body>
+</html>

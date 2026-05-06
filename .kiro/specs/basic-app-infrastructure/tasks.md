@@ -115,7 +115,7 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
     - _Requirements: 3.2, 3.3, 3.5, 11.5_
 
 - [ ] 6. Implement HTML templates
-  - [~] 6.1 Create base layout template
+  - [x] 6.1 Create base layout template
     - Create `templates/base.html` with shared HTML structure (head, nav with app title, language switcher, footer)
     - Include `<script>` tags for HTMX and Alpine.js pointing to `/static/js/`
     - Include `<link>` tag for Tailwind CSS pointing to `/static/css/`

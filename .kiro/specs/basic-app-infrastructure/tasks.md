@@ -6,15 +6,15 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
 
 ## Tasks
 
-- [ ] 1. Initialize project structure and Go module
-  - [-] 1.1 Create directory structure and initialize Go module
+- [x] 1. Initialize project structure and Go module
+  - [x] 1.1 Create directory structure and initialize Go module
     - Create `cmd/server/`, `internal/handler/`, `internal/model/`, `internal/store/`, `internal/i18n/`, `static/js/`, `static/css/`, `static/img/landmarks/`, `templates/` directories
     - Initialize `go.mod` with a valid module path
     - Add chi router (`github.com/go-chi/chi/v5`) and SQLite driver (`modernc.org/sqlite`) dependencies
     - Create a minimal `cmd/server/main.go` that compiles and prints "starting server"
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 2.1, 2.2, 2.3, 2.4_
 
-  - [~] 1.2 Create Makefile with all targets
+  - [x] 1.2 Create Makefile with all targets
     - Implement `run`, `build`, `test`, `deps`, `clean`, `docker`, `lint` targets
     - `deps` target downloads HTMX, Alpine.js, and Tailwind CSS standalone CLI output to `static/`
     - `build` compiles to `bin/server`

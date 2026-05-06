@@ -170,7 +170,7 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
     - SQLite DB created at runtime via auto-migration and seeding
     - _Requirements: 9.1, 9.2, 9.3, 9.4, 9.5_
 
-- [~] 9. Final checkpoint
+- [x] 9. Final checkpoint
   - Ensure all tests pass with `go test ./...`, verify `make run` starts the app and displays the landing page with landmarks, ask the user if questions arise.
 
 ## Notes

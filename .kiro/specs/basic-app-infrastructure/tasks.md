@@ -41,7 +41,7 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
     - Only seed when `landmarks` table is empty (check via `SELECT COUNT(*)`)
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.7_
 
-  - [~] 2.4 Implement query methods
+  - [-] 2.4 Implement query methods
     - Create `internal/store/landmarks.go` with `ListLandmarks(locale)` and `GetLandmark(id, locale)` methods
     - Join `landmarks` and `landmark_translations` tables filtered by locale
     - _Requirements: 6a.3_

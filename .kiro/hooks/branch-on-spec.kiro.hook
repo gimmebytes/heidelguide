@@ -1,13 +1,14 @@
 {
   "enabled": true,
   "name": "Create Branch on Spec Start",
-  "description": "When a new spec task begins execution, checks if we're on main/master and creates a dedicated feature branch based on the spec name to avoid working directly on the main branch.",
+  "description": "When a new spec file is created, checks if we're on main/master and creates a dedicated feature branch based on the spec name to avoid working directly on the main branch.",
   "version": "1",
   "when": {
-    "type": "preTaskExecution"
+    "type": "fileCreated",
+    "patterns": [".kiro/specs/**/*"]
   },
   "then": {
     "type": "askAgent",
-    "prompt": "Before starting this task, check if we are currently on the main or master branch. If so, create and switch to a new feature branch named after the spec being worked on (e.g., feat/spec-name). If we are already on a feature branch, continue without switching. Do not ask the user for confirmation — just create the branch and switch to it."
+    "prompt": "A new spec file was just created. Check if we are currently on the main or master branch. If so, create and switch to a new feature branch named after the spec directory (e.g., feat/basic-app-infrastructure). Derive the branch name from the spec folder name under .kiro/specs/. If we are already on a feature branch, continue without switching. Do not ask the user for confirmation — just create the branch and switch to it."
   }
 }

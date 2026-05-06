@@ -34,7 +34,7 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
     - Handle DB open/create errors with descriptive messages
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7_
 
-  - [~] 2.3 Implement seed data
+  - [x] 2.3 Implement seed data
     - Create `internal/store/seed.go` with `Seed()` method
     - Insert 8 Heidelberg landmarks with real coordinates, year_built, year_destroyed, image filenames
     - Insert German and English translations with factually accurate name, description, and history text

@@ -10,3 +10,5 @@ Duration: 1h 4m
 Credits: 22
 
 Second Run
+Duration: 7m
+Credits: 17 (Context needed to be re-read)

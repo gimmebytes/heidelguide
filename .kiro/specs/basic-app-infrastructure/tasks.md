@@ -26,7 +26,7 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
     - Create `internal/model/landmark.go` with `Landmark`, `LandmarkTranslation`, and `LandmarkWithTranslation` structs
     - _Requirements: 5.2, 5.3_
 
-  - [~] 2.2 Implement SQLite store with migrations
+  - [x] 2.2 Implement SQLite store with migrations
     - Create `internal/store/store.go` with `Store` struct, `Open()`, `Close()`, `Migrate()` methods
     - Create `internal/store/migrations.go` with `CREATE TABLE IF NOT EXISTS` for `landmarks` and `landmark_translations`
     - Enforce unique constraint on `(landmark_id, locale)`

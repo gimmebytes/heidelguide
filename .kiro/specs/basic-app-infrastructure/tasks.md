@@ -22,7 +22,7 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
     - _Requirements: 1.5, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7_
 
 - [ ] 2. Implement data layer (models, store, migrations, seed)
-  - [~] 2.1 Define domain models
+  - [x] 2.1 Define domain models
     - Create `internal/model/landmark.go` with `Landmark`, `LandmarkTranslation`, and `LandmarkWithTranslation` structs
     - _Requirements: 5.2, 5.3_
 

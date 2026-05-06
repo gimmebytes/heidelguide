@@ -15,11 +15,12 @@ func (h *Handler) Landing(w http.ResponseWriter, r *http.Request) {
 		Locale:    locale,
 		Landmarks: landmarks,
 	}
-	if h.Templates == nil {
-		http.Error(w, "templates not loaded", http.StatusInternalServerError)
+	tmpl, ok := h.Templates["landing.html"]
+	if !ok {
+		http.Error(w, "template not found", http.StatusInternalServerError)
 		return
 	}
-	if err := h.Templates.ExecuteTemplate(w, "landing.html", data); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "base.html", data); err != nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 }

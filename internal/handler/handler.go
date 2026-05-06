@@ -11,15 +11,15 @@ import (
 // Handler holds dependencies for HTTP handlers.
 type Handler struct {
 	Store     *store.Store
-	Templates *template.Template
+	Templates map[string]*template.Template
 	Labels    map[string]map[string]string // locale -> key -> label
 }
 
 // New creates a new Handler with the given dependencies.
-func New(s *store.Store, tmpl *template.Template, labels map[string]map[string]string) *Handler {
+func New(s *store.Store, templates map[string]*template.Template, labels map[string]map[string]string) *Handler {
 	return &Handler{
 		Store:     s,
-		Templates: tmpl,
+		Templates: templates,
 		Labels:    labels,
 	}
 }

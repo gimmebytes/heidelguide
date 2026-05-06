@@ -154,7 +154,7 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
     - **Property 7: Detail page renders all landmark fields**
     - **Validates: Requirements 11.2**
 
-- [~] 7. Checkpoint
+- [-] 7. Checkpoint
   - Ensure all tests pass with `go test ./...`, ask the user if questions arise.
 
 - [ ] 8. Static assets and Dockerfile

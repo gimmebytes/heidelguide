@@ -33,11 +33,12 @@ func (h *Handler) Detail(w http.ResponseWriter, r *http.Request) {
 		Landmark: landmark,
 	}
 
-	if h.Templates == nil {
-		http.Error(w, "Not Found", http.StatusNotFound)
+	tmpl, ok := h.Templates["detail.html"]
+	if !ok {
+		http.Error(w, "template not found", http.StatusInternalServerError)
 		return
 	}
-	if err := h.Templates.ExecuteTemplate(w, "detail.html", data); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "base.html", data); err != nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 }
@@ -45,13 +46,14 @@ func (h *Handler) Detail(w http.ResponseWriter, r *http.Request) {
 // renderNotFound renders the 404 page template, falling back to a plain text response.
 func (h *Handler) renderNotFound(w http.ResponseWriter) {
 	w.WriteHeader(http.StatusNotFound)
-	if h.Templates != nil {
+	tmpl, ok := h.Templates["404.html"]
+	if ok {
 		locale := "de"
 		data := PageData{
 			Labels: h.Labels[locale],
 			Locale: locale,
 		}
-		if err := h.Templates.ExecuteTemplate(w, "404.html", data); err == nil {
+		if err := tmpl.ExecuteTemplate(w, "base.html", data); err == nil {
 			return
 		}
 	}

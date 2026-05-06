@@ -80,7 +80,7 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
   - Ensure all tests pass with `go test ./...`, ask the user if questions arise.
 
 - [ ] 5. Implement HTTP server, routing, and handlers
-  - [~] 5.1 Set up HTTP server with chi router
+  - [x] 5.1 Set up HTTP server with chi router
     - Wire `cmd/server/main.go` to open the store, run migrations, seed data, parse templates, and start the HTTP server on port 8080
     - Register routes: `GET /`, `GET /landmarks/{id}`, `POST /language`, `GET /static/*`
     - Serve static files via `http.FileServer`

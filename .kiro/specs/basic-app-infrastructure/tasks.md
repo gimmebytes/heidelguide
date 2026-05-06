@@ -157,13 +157,13 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
 - [x] 7. Checkpoint
   - Ensure all tests pass with `go test ./...`, ask the user if questions arise.
 
-- [ ] 8. Static assets and Dockerfile
+- [x] 8. Static assets and Dockerfile
   - [x] 8.1 Download and configure static assets
     - Run `make deps` to download HTMX, Alpine.js, and Tailwind CSS to `static/js/` and `static/css/`
     - Add placeholder landmark images to `static/img/landmarks/` (one per seeded landmark)
     - _Requirements: 4.2, 4.3, 4.4, 6.6_
 
-  - [~] 8.2 Create Dockerfile
+  - [x] 8.2 Create Dockerfile
     - Implement multi-stage build: Go builder stage + Alpine runtime stage
     - Copy compiled binary, templates, and static assets into final image
     - Expose port 8080, set CMD to run the server

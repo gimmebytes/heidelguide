@@ -8,7 +8,7 @@ CMD := ./cmd/server
 # URLs for frontend dependencies
 HTMX_URL := https://unpkg.com/htmx.org/dist/htmx.min.js
 ALPINE_URL := https://unpkg.com/alpinejs/dist/cdn.min.js
-TAILWIND_URL := https://cdn.jsdelivr.net/npm/tailwindcss@3/dist/tailwind.min.css
+TAILWIND_URL := https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css
 
 ## run: Compile and start the application
 run:

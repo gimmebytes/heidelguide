@@ -29,6 +29,12 @@ go.work.sum
 # env file
 .env
 
+# Database (created at runtime)
+heidelberg.db
+
+# Static assets: JS/CSS/images are committed (served locally, no CDN)
+# Do NOT add static/ to gitignore
+
 # Editor/IDE
 # .idea/
 # .vscode/

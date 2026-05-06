@@ -79,7 +79,7 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
 - [x] 4. Checkpoint
   - Ensure all tests pass with `go test ./...`, ask the user if questions arise.
 
-- [ ] 5. Implement HTTP server, routing, and handlers
+- [x] 5. Implement HTTP server, routing, and handlers
   - [x] 5.1 Set up HTTP server with chi router
     - Wire `cmd/server/main.go` to open the store, run migrations, seed data, parse templates, and start the HTTP server on port 8080
     - Register routes: `GET /`, `GET /landmarks/{id}`, `POST /language`, `GET /static/*`
@@ -107,7 +107,7 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
     - Redirect back to referring page
     - _Requirements: 6a.3, 6a.4, 6a.5_
 
-  - [ ] 5.5 Write unit tests for handlers
+  - [x] 5.5 Write unit tests for handlers
     - Test landing handler returns 200 with landmark content
     - Test detail handler returns 200 for valid ID and 404 for invalid ID
     - Test language handler sets cookie and redirects
@@ -154,11 +154,11 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
     - **Property 7: Detail page renders all landmark fields**
     - **Validates: Requirements 11.2**
 
-- [-] 7. Checkpoint
+- [x] 7. Checkpoint
   - Ensure all tests pass with `go test ./...`, ask the user if questions arise.
 
 - [ ] 8. Static assets and Dockerfile
-  - [~] 8.1 Download and configure static assets
+  - [x] 8.1 Download and configure static assets
     - Run `make deps` to download HTMX, Alpine.js, and Tailwind CSS to `static/js/` and `static/css/`
     - Add placeholder landmark images to `static/img/landmarks/` (one per seeded landmark)
     - _Requirements: 4.2, 4.3, 4.4, 6.6_

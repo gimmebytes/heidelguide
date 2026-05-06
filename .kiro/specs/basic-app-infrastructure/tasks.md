@@ -88,7 +88,7 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
     - Exit with descriptive error on startup failures (DB, templates, port)
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 4.1, 4.5_
 
-  - [~] 5.2 Implement handler struct and landing page handler
+  - [x] 5.2 Implement handler struct and landing page handler
     - Create `internal/handler/handler.go` with `Handler` struct holding store, templates, and labels
     - Create `internal/handler/landing.go` with `Landing()` method
     - Read locale from cookie (default "de"), query all landmarks, render landing template

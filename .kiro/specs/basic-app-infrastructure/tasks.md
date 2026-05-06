@@ -101,13 +101,13 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
     - Render detail template with full landmark data
     - _Requirements: 11.1, 11.2, 11.3, 11.4, 11.5_
 
-  - [~] 5.4 Implement language switching handler
+  - [x] 5.4 Implement language switching handler
     - Create `internal/handler/language.go` with `SwitchLanguage()` method
     - Accept POST with locale value, set `lang` cookie (HttpOnly, SameSite=Lax, Path="/")
     - Redirect back to referring page
     - _Requirements: 6a.3, 6a.4, 6a.5_
 
-  - [ ]* 5.5 Write unit tests for handlers
+  - [ ] 5.5 Write unit tests for handlers
     - Test landing handler returns 200 with landmark content
     - Test detail handler returns 200 for valid ID and 404 for invalid ID
     - Test language handler sets cookie and redirects

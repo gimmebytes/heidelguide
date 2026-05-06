@@ -41,7 +41,7 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
     - Only seed when `landmarks` table is empty (check via `SELECT COUNT(*)`)
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.7_
 
-  - [-] 2.4 Implement query methods
+  - [x] 2.4 Implement query methods
     - Create `internal/store/landmarks.go` with `ListLandmarks(locale)` and `GetLandmark(id, locale)` methods
     - Join `landmarks` and `landmark_translations` tables filtered by locale
     - _Requirements: 6a.3_
@@ -66,8 +66,8 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
     - Use in-memory SQLite for tests
     - _Requirements: 5.1, 5.2, 5.6, 6.1, 6.7_
 
-- [ ] 3. Implement i18n labels
-  - [~] 3.1 Create i18n package with UI labels
+- [x] 3. Implement i18n labels
+  - [x] 3.1 Create i18n package with UI labels
     - Create `internal/i18n/i18n.go` with `Labels()` function returning `map[string]map[string]string`
     - Include all UI labels for "de" and "en" locales (app_title, nav_home, back, year_built, year_destroyed, language, description, history)
     - _Requirements: 6a.1, 6a.2, 6a.6_

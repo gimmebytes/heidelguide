@@ -163,6 +163,20 @@ This document defines the requirements for the foundational infrastructure of th
 6. THE landing page SHALL be responsive and render correctly on both desktop and mobile viewport widths
 7. THE landing page SHALL load without any external network requests
 
+### Requirement 12: Structured Logging and Access Logs
+
+**User Story:** As a developer, I want structured application logs and HTTP access logs printed to the console, so that I can observe request traffic and application behavior side by side during development and demos.
+
+#### Acceptance Criteria
+
+1. THE App SHALL use Go's standard `log/slog` package for all application-level logging (startup, errors, informational messages)
+2. THE App SHALL output structured log entries in text format to standard output, including timestamp, level, and message fields
+3. THE App SHALL include a chi middleware that logs every HTTP request with method, path, status code, and response duration
+4. THE App SHALL log access entries at INFO level using the same `slog` logger so that access logs and app logs appear interleaved in a single console stream
+5. THE App SHALL log application startup events (DB opened, migrations run, seed complete, server listening) at INFO level
+6. THE App SHALL log application errors (failed DB queries, template render errors) at ERROR level
+7. THE App SHALL NOT use the legacy `log` package — all logging goes through `slog`
+
 ### Requirement 11: Landmark Detail Page
 
 **User Story:** As a user, I want to click on a landmark card and see a detailed page with full information, so that I can learn more about a specific point of interest.

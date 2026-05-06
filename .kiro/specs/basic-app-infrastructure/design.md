@@ -12,6 +12,8 @@ The architecture follows a classic server-rendered MPA (multi-page application) 
 |----------|--------|-----------|
 | SQLite driver | `modernc.org/sqlite` | Pure Go, no CGO required — simplifies cross-compilation and Docker builds |
 | Router | `github.com/go-chi/chi/v5` | Lightweight, idiomatic, stdlib-compatible, URL params via `{id}` syntax |
+| Logging | `log/slog` (standard library) | Structured logging built into Go 1.21+; no third-party dependency needed |
+| Access logging | Custom chi middleware using `slog` | Keeps access logs and app logs in a single interleaved stream |
 | i18n approach | Simple `map[string]map[string]string` for UI labels + DB translations for content | No heavy i18n library needed for 2 locales; keeps dependencies minimal |
 | Language persistence | Cookie (`lang=de` or `lang=en`) | Simplest session-scoped persistence; no server-side session store needed |
 | Template strategy | Shared base layout + page-specific templates | Standard Go `html/template` composition with `{{template}}` and `{{block}}` |
@@ -399,6 +401,64 @@ type PageData struct {
 **Validates: Requirements 11.2**
 
 ## Error Handling
+
+### Logging Architecture
+
+The application uses Go's standard `log/slog` package for all logging. A single `slog.Logger` instance is created at startup and used throughout the application.
+
+#### Logger Setup
+
+```go
+// cmd/server/main.go
+logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
+    Level: slog.LevelInfo,
+}))
+slog.SetDefault(logger)
+```
+
+#### Access Log Middleware
+
+A custom chi middleware logs every HTTP request at INFO level with structured fields:
+
+```go
+// internal/middleware/logging.go
+package middleware
+
+func RequestLogger(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        start := time.Now()
+        ww := NewResponseWriter(w) // wraps to capture status code
+        next.ServeHTTP(ww, r)
+        slog.Info("request",
+            "method", r.Method,
+            "path", r.URL.Path,
+            "status", ww.Status(),
+            "duration", time.Since(start).String(),
+        )
+    })
+}
+```
+
+#### Log Output Format
+
+All logs go to stdout in slog's text format:
+
+```
+time=2024-01-15T10:30:00.000Z level=INFO msg="database opened" path=heidelberg.db
+time=2024-01-15T10:30:00.001Z level=INFO msg="migrations complete"
+time=2024-01-15T10:30:00.050Z level=INFO msg="seed data inserted" landmarks=8
+time=2024-01-15T10:30:00.051Z level=INFO msg="server listening" addr=:8080
+time=2024-01-15T10:30:01.123Z level=INFO msg=request method=GET path=/ status=200 duration=12.3ms
+time=2024-01-15T10:30:01.456Z level=INFO msg=request method=GET path=/static/css/tailwind.min.css status=200 duration=1.2ms
+```
+
+#### Package Structure Addition
+
+```
+├── internal/
+│   ├── middleware/
+│   │   └── logging.go           # Request logging middleware
+```
 
 ### Startup Errors
 

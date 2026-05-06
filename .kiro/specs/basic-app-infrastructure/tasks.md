@@ -173,6 +173,21 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
 - [x] 9. Final checkpoint
   - Ensure all tests pass with `go test ./...`, verify `make run` starts the app and displays the landing page with landmarks, ask the user if questions arise.
 
+- [x] 10. Implement structured logging and access logs
+  - [x] 10.1 Create request logging middleware
+    - Create `internal/middleware/logging.go` with a chi-compatible middleware
+    - Wrap `http.ResponseWriter` to capture status code
+    - Log each request at INFO level with method, path, status, and duration using `slog`
+    - _Requirements: 12.3, 12.4_
+
+  - [x] 10.2 Replace legacy log with slog throughout the application
+    - Replace all `log.Printf` / `log.Fatalf` calls in `cmd/server/main.go` with `slog.Info` / `slog.Error` + `os.Exit(1)`
+    - Set up `slog.TextHandler` writing to stdout at startup
+    - Log startup events: DB opened, migrations complete, seed complete, server listening
+    - Log errors at ERROR level
+    - Wire the request logging middleware into the chi router
+    - _Requirements: 12.1, 12.2, 12.5, 12.6, 12.7_
+
 ## Notes
 
 - Tasks marked with `*` are optional and can be skipped for faster MVP

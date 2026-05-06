@@ -94,7 +94,7 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
     - Read locale from cookie (default "de"), query all landmarks, render landing template
     - _Requirements: 7.2, 10.1, 10.2, 10.3, 6a.1_
 
-  - [~] 5.3 Implement detail page handler
+  - [x] 5.3 Implement detail page handler
     - Create `internal/handler/detail.go` with `Detail()` method
     - Parse landmark ID from URL, query landmark by ID and locale
     - Return 404 with error page for missing/invalid IDs

@@ -21,7 +21,7 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
     - `clean` removes `bin/` and `heidelberg.db`
     - _Requirements: 1.5, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7_
 
-- [ ] 2. Implement data layer (models, store, migrations, seed)
+- [x] 2. Implement data layer (models, store, migrations, seed)
   - [x] 2.1 Define domain models
     - Create `internal/model/landmark.go` with `Landmark`, `LandmarkTranslation`, and `LandmarkWithTranslation` structs
     - _Requirements: 5.2, 5.3_
@@ -76,7 +76,7 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
     - **Property 4: UI labels completeness**
     - **Validates: Requirements 6a.6**
 
-- [~] 4. Checkpoint
+- [x] 4. Checkpoint
   - Ensure all tests pass with `go test ./...`, ask the user if questions arise.
 
 - [ ] 5. Implement HTTP server, routing, and handlers

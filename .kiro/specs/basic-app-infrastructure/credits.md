@@ -15,4 +15,4 @@ Credits: 17 (Context needed to be re-read)
 
 Third Run (Minor bugfixes + structured logging, conversational style)
 Duration: n/a
-Credits: Roughly 46
+Credits: Roughly 10

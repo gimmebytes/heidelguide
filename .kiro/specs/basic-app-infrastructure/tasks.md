@@ -130,7 +130,7 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
     - Responsive layout for desktop and mobile
     - _Requirements: 10.2, 10.3, 10.5, 10.6, 11.1_
 
-  - [~] 6.3 Create detail page template
+  - [x] 6.3 Create detail page template
     - Create `templates/detail.html` defining the "content" block
     - Display full landmark name, description, history, year_built, year_destroyed (if applicable), and full-size image
     - Include back/home navigation link

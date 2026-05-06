@@ -122,7 +122,7 @@ Build the foundational infrastructure for the Heidelberg Tourism Guide — a sel
     - Define `{{block "content" .}}` for page-specific content
     - _Requirements: 7.1, 7.3, 7.4, 10.1, 10.4, 10.7_
 
-  - [~] 6.2 Create landing page template
+  - [x] 6.2 Create landing page template
     - Create `templates/landing.html` defining the "content" block
     - Render landmark cards in a responsive grid with name, description snippet, and thumbnail image
     - Each card links to `/landmarks/{id}`

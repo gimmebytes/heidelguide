@@ -20,4 +20,19 @@ var migrations = []string{
 		FOREIGN KEY (landmark_id) REFERENCES landmarks(id),
 		UNIQUE(landmark_id, locale)
 	)`,
+	`CREATE TABLE IF NOT EXISTS categories (
+		id    INTEGER PRIMARY KEY AUTOINCREMENT,
+		slug  TEXT NOT NULL UNIQUE,
+		color TEXT NOT NULL
+	)`,
+	`CREATE TABLE IF NOT EXISTS category_translations (
+		id          INTEGER PRIMARY KEY AUTOINCREMENT,
+		category_id INTEGER NOT NULL,
+		locale      TEXT NOT NULL,
+		name        TEXT NOT NULL,
+		FOREIGN KEY (category_id) REFERENCES categories(id),
+		UNIQUE(category_id, locale)
+	)`,
+	`ALTER TABLE landmarks ADD COLUMN category_id INTEGER REFERENCES categories(id) DEFAULT 1`,
+	`ALTER TABLE landmarks ADD COLUMN highlighted INTEGER NOT NULL DEFAULT 0`,
 }

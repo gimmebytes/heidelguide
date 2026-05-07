@@ -8,7 +8,7 @@ CMD := ./cmd/server
 # URLs for frontend dependencies
 HTMX_URL := https://unpkg.com/htmx.org/dist/htmx.min.js
 ALPINE_URL := https://unpkg.com/alpinejs/dist/cdn.min.js
-TAILWIND_URL := https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css
+TAILWIND_URL := https://cdn.tailwindcss.com/3.4.17
 
 ## run: Compile and start the application
 run:
@@ -32,7 +32,7 @@ deps:
 	@mkdir -p static/js static/css
 	curl -sL -o static/js/htmx.min.js $(HTMX_URL)
 	curl -sL -o static/js/alpine.min.js $(ALPINE_URL)
-	curl -sL -o static/css/tailwind.min.css $(TAILWIND_URL)
+	curl -sL -o static/js/tailwind-cdn.js $(TAILWIND_URL)
 
 ## clean: Remove build artifacts and database
 clean:

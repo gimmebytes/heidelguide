@@ -10,5 +10,5 @@ All landmark images are sourced from [Wikimedia Commons](https://commons.wikimed
 | holy_spirit_church.jpg | [Heidelberg - Heiliggeistkirche.jpg](https://commons.wikimedia.org/wiki/File:Heidelberg_-_Heiliggeistkirche.jpg) | CC BY-SA 3.0 |
 | student_prison.jpg | [Studentenkarzer, Heidelberg (2).jpg](https://commons.wikimedia.org/wiki/File:Studentenkarzer,_Heidelberg_(2).jpg) | CC BY-SA 3.0 |
 | university_library.jpg | [Heidelberg Universitätsbibliothek 2003.jpg](https://commons.wikimedia.org/wiki/File:Heidelberg_Universit%C3%A4tsbibliothek_2003.jpg) | CC BY-SA 3.0 |
-| koenigstuhl.jpg | [Königsstuhl und Viktoria-Sicht.jpg](https://commons.wikimedia.org/wiki/File:K%C3%B6nigsstuhl_und_Viktoria-Sicht.jpg) | CC BY-SA 3.0 |
+| koenigstuhl.jpg | [Königstuhl, Heidelberg, U-17.jpg](https://commons.wikimedia.org/wiki/File:K%C3%B6nigstuhl,_Heidelberg,_U-17.jpg) — Jörg Braukmann | CC BY-SA 4.0 |
 | neckar_meadow.jpg | [Neckarwiese in Heidelberg, Germany.jpg](https://commons.wikimedia.org/wiki/File:Neckarwiese_in_Heidelberg,_Germany.jpg) | CC BY-SA 4.0 |

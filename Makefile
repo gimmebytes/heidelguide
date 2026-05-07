@@ -1,4 +1,4 @@
-.PHONY: run build test test-visual deps clean docker lint
+.PHONY: run dev build test test-visual deps clean docker lint
 
 # Application
 APP_NAME := heidelberg-guide
@@ -13,6 +13,10 @@ TAILWIND_URL := https://cdn.tailwindcss.com/3.4.17
 ## run: Compile and start the application
 run:
 	go run $(CMD)
+
+## dev: Start the application with hot-reload (requires Air)
+dev:
+	air
 
 ## build: Compile the Go binary to bin/server
 build:

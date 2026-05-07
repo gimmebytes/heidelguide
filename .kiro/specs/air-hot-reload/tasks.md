@@ -11,7 +11,7 @@
 
 ## Task 3: Add Makefile dev target
 
-- [~] 3.1 Add a `dev` phony target to the Makefile that runs `air`, with a help comment `## dev: Start the application with hot-reload (requires Air)`
+- [x] 3.1 Add a `dev` phony target to the Makefile that runs `air`, with a help comment `## dev: Start the application with hot-reload (requires Air)`
 
 ## Task 4: Update README with hot-reload documentation
 

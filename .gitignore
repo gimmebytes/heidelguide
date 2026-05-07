@@ -35,6 +35,9 @@ heidelberg.db
 # Static assets: JS/CSS/images are committed (served locally, no CDN)
 # Do NOT add static/ to gitignore
 
+# Air hot-reload build output
+tmp/
+
 # Editor/IDE
 # .idea/
 # .vscode/

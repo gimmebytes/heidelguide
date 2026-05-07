@@ -7,7 +7,7 @@
 
 ## Task 2: Update .gitignore
 
-- [~] 2.1 Add `tmp/` entry to `.gitignore` to exclude Air's build output directory
+- [x] 2.1 Add `tmp/` entry to `.gitignore` to exclude Air's build output directory
 
 ## Task 3: Add Makefile dev target
 

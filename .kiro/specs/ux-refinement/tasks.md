@@ -12,7 +12,7 @@
 
 - [x] 2.1 Update `ListLandmarks` query to JOIN categories and category_translations, return `[]model.LandmarkView`, order by highlighted DESC then id ASC
 - [x] 2.2 Update `GetLandmark` query to JOIN categories and category_translations, return `*model.LandmarkView`
-- [~] 2.3 Write unit tests for `ListLandmarks` (verify category data populated, highlight ordering) and `GetLandmark` (verify category data)
+- [-] 2.3 Write unit tests for `ListLandmarks` (verify category data populated, highlight ordering) and `GetLandmark` (verify category data)
 
 ## Task 3: Handler & Template Infrastructure
 

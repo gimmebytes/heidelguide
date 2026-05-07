@@ -1,6 +1,6 @@
 # 🏰 heidelguide
 
-A tourism guide web app for the city of Heidelberg — built live on stage as a demo for the [trade/off Summit](https://tradeoff.sh) MasterClass **"Agentic AI im Realitätscheck"** (2026).
+A tourism guide web app for the city of Heidelberg — built live on stage as a demo for the [trade/off Summit](https://www.tradeoff.ai/) MasterClass **"Agentic AI im Realitätscheck"** (2026).
 
 ## What is this?
 

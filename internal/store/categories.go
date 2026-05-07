@@ -59,3 +59,43 @@ func (s *Store) SeedCategories() error {
 	}
 	return nil
 }
+
+// AssignDefaultCategories updates existing landmarks with their category and highlight status.
+// It is safe to call multiple times as UPDATE is naturally idempotent.
+func (s *Store) AssignDefaultCategories() error {
+	assignments := []struct {
+		LandmarkID   int64
+		CategorySlug string
+		Highlighted  bool
+	}{
+		{1, "architecture", true},  // Heidelberger Schloss
+		{2, "architecture", true},  // Alte Brücke
+		{3, "nature", false},       // Philosophenweg
+		{4, "architecture", false}, // Heiliggeistkirche
+		{5, "history", true},       // Studentenkarzer
+		{6, "culture", false},      // Universitätsbibliothek
+		{7, "nature", false},       // Königstuhl
+		{8, "nature", false},       // Neckarwiese
+	}
+
+	for _, a := range assignments {
+		_, err := s.db.Exec(`
+			UPDATE landmarks
+			SET category_id = (SELECT id FROM categories WHERE slug = ?),
+			    highlighted = ?
+			WHERE id = ?`,
+			a.CategorySlug, boolToInt(a.Highlighted), a.LandmarkID)
+		if err != nil {
+			return fmt.Errorf("failed to assign category for landmark %d: %w", a.LandmarkID, err)
+		}
+	}
+	return nil
+}
+
+// boolToInt converts a boolean to an integer (1 for true, 0 for false).
+func boolToInt(b bool) int {
+	if b {
+		return 1
+	}
+	return 0
+}

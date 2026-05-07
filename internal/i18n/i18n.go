@@ -15,6 +15,9 @@ var labels = map[string]map[string]string{
 		"language":       "Sprache",
 		"description":    "Beschreibung",
 		"history":        "Geschichte",
+		"learn_more":     "Mehr erfahren",
+		"home":           "Startseite",
+		"highlight":      "Highlight",
 	},
 	"en": {
 		"app_title":      "Heidelberg Guide",
@@ -25,5 +28,8 @@ var labels = map[string]map[string]string{
 		"language":       "Language",
 		"description":    "Description",
 		"history":        "History",
+		"learn_more":     "Learn more",
+		"home":           "Home",
+		"highlight":      "Highlight",
 	},
 }

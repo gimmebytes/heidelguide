@@ -82,4 +82,4 @@ No compose file needed — the image is fully self-contained.
 
 ## License
 
-Demo project for educational purposes.
+[MIT](LICENSE)

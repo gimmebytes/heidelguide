@@ -34,6 +34,18 @@ func setupTestHandler(t *testing.T) *handler.Handler {
 		t.Fatalf("failed to seed data: %v", err)
 	}
 
+	if err := s.SeedCategories(); err != nil {
+		t.Fatalf("failed to seed categories: %v", err)
+	}
+	if err := s.AssignDefaultCategories(); err != nil {
+		t.Fatalf("failed to assign default categories: %v", err)
+	}
+
+	// Define template functions (must match main.go).
+	funcMap := template.FuncMap{
+		"categoryColorClass": handler.CategoryColorClass,
+	}
+
 	// Parse templates — paths relative to project root (tests run from package dir).
 	templatesDir := filepath.Join("..", "..", "templates")
 	baseFile := filepath.Join(templatesDir, "base.html")
@@ -42,7 +54,7 @@ func setupTestHandler(t *testing.T) *handler.Handler {
 	pages := []string{"landing.html", "detail.html", "404.html"}
 	for _, page := range pages {
 		pageFile := filepath.Join(templatesDir, page)
-		tmpl, err := template.ParseFiles(baseFile, pageFile)
+		tmpl, err := template.New(page).Funcs(funcMap).ParseFiles(baseFile, pageFile)
 		if err != nil {
 			t.Fatalf("failed to parse template %s: %v", page, err)
 		}

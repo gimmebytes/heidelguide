@@ -12,7 +12,7 @@
 
 - [x] 2.1 Update `ListLandmarks` query to JOIN categories and category_translations, return `[]model.LandmarkView`, order by highlighted DESC then id ASC
 - [x] 2.2 Update `GetLandmark` query to JOIN categories and category_translations, return `*model.LandmarkView`
-- [-] 2.3 Write unit tests for `ListLandmarks` (verify category data populated, highlight ordering) and `GetLandmark` (verify category data)
+- [x] 2.3 Write unit tests for `ListLandmarks` (verify category data populated, highlight ordering) and `GetLandmark` (verify category data)
 
 ## Task 3: Handler & Template Infrastructure
 
@@ -23,7 +23,7 @@
 
 ## Task 4: Landing Page Template
 
-- [~] 4.1 Replace the gradient hero section with a full-width scenic image hero (img tag + gradient overlay + text)
+- [-] 4.1 Replace the gradient hero section with a full-width scenic image hero (img tag + gradient overlay + text)
 - [~] 4.2 Add hero image file to `static/img/` (scenic Heidelberg photograph)
 - [~] 4.3 Update the landmark grid from 3-column to 4-column layout (lg:grid-cols-4, md:grid-cols-2)
 - [~] 4.4 Redesign landmark cards: add category pill, highlight badge, HG monogram placeholder, "Learn more" link, updated styling

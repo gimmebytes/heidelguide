@@ -7,7 +7,7 @@ func Labels() map[string]map[string]string {
 
 var labels = map[string]map[string]string{
 	"de": {
-		"app_title":      "Heidelberg Guide",
+		"app_title":      "Heidelguide",
 		"nav_home":       "Startseite",
 		"back":           "Zurück",
 		"year_built":     "Erbaut",
@@ -20,7 +20,7 @@ var labels = map[string]map[string]string{
 		"highlight":      "Highlight",
 	},
 	"en": {
-		"app_title":      "Heidelberg Guide",
+		"app_title":      "Heidelguide",
 		"nav_home":       "Home",
 		"back":           "Back",
 		"year_built":     "Built",

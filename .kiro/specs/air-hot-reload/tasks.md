@@ -15,4 +15,4 @@
 
 ## Task 4: Update README with hot-reload documentation
 
-- [~] 4.1 Add a "Development with Hot-Reload" section to README.md documenting Air installation (`go install github.com/air-verse/air@latest`), the `make dev` command, and which file types/directories are watched
+- [x] 4.1 Add a "Development with Hot-Reload" section to README.md documenting Air installation (`go install github.com/air-verse/air@latest`), the `make dev` command, and which file types/directories are watched

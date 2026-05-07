@@ -23,16 +23,16 @@
 
 ## Task 4: Landing Page Template
 
-- [-] 4.1 Replace the gradient hero section with a full-width scenic image hero (img tag + gradient overlay + text)
-- [~] 4.2 Add hero image file to `static/img/` (scenic Heidelberg photograph)
-- [~] 4.3 Update the landmark grid from 3-column to 4-column layout (lg:grid-cols-4, md:grid-cols-2)
-- [~] 4.4 Redesign landmark cards: add category pill, highlight badge, HG monogram placeholder, "Learn more" link, updated styling
+- [x] 4.1 Replace the gradient hero section with a full-width scenic image hero (img tag + gradient overlay + text)
+- [x] 4.2 Add hero image file to `static/img/` (scenic Heidelberg photograph)
+- [x] 4.3 Update the landmark grid from 3-column to 4-column layout (lg:grid-cols-4, md:grid-cols-2)
+- [x] 4.4 Redesign landmark cards: add category pill, highlight badge, HG monogram placeholder, "Learn more" link, updated styling
 
 ## Task 5: Detail Page Template
 
-- [~] 5.1 Add breadcrumb navigation bar below the nav: "Home > Landmark Name" with Home as a link to /
-- [~] 5.2 Add category pill and highlight badge display to the detail page content area
-- [~] 5.3 Apply warmer color palette to detail page elements (consistent with landing page overhaul)
+- [x] 5.1 Add breadcrumb navigation bar below the nav: "Home > Landmark Name" with Home as a link to /
+- [x] 5.2 Add category pill and highlight badge display to the detail page content area
+- [x] 5.3 Apply warmer color palette to detail page elements (consistent with landing page overhaul)
 
 ## Task 6: Color Palette & Base Template
 

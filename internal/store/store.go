@@ -3,6 +3,7 @@ package store
 import (
 	"database/sql"
 	"fmt"
+	"strings"
 
 	_ "modernc.org/sqlite"
 )
@@ -37,8 +38,31 @@ func (s *Store) Close() error {
 func (s *Store) Migrate() error {
 	for _, stmt := range migrations {
 		if _, err := s.db.Exec(stmt); err != nil {
+			// SQLite doesn't support IF NOT EXISTS for ALTER TABLE ADD COLUMN.
+			// Ignore "duplicate column name" errors so migrations are re-runnable.
+			if isDuplicateColumnError(err) {
+				continue
+			}
 			return fmt.Errorf("migration failed: %w", err)
 		}
 	}
 	return nil
+}
+
+// isDuplicateColumnError checks if the error is a SQLite "duplicate column name" error.
+func isDuplicateColumnError(err error) bool {
+	return err != nil && strings.Contains(err.Error(), "duplicate column name")
+}
+
+func contains(s, substr string) bool {
+	return len(s) >= len(substr) && (s == substr || len(s) > 0 && containsSubstring(s, substr))
+}
+
+func containsSubstring(s, substr string) bool {
+	for i := 0; i <= len(s)-len(substr); i++ {
+		if s[i:i+len(substr)] == substr {
+			return true
+		}
+	}
+	return false
 }

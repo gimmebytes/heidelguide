@@ -3,8 +3,8 @@
 ## Task 1: Database Schema & Seed Data
 
 - [x] 1.1 Add new migration SQL statements: CREATE TABLE categories, CREATE TABLE category_translations, ALTER TABLE landmarks ADD COLUMN category_id, ALTER TABLE landmarks ADD COLUMN highlighted
-- [-] 1.2 Update the `model` package: add `Category`, `CategoryTranslation` structs; extend `Landmark` struct with `CategoryID` and `Highlighted` fields; create `LandmarkView` struct
-- [~] 1.3 Implement `SeedCategories()` in the store: insert 4 categories with translations for de/en, idempotent
+- [x] 1.2 Update the `model` package: add `Category`, `CategoryTranslation` structs; extend `Landmark` struct with `CategoryID` and `Highlighted` fields; create `LandmarkView` struct
+- [-] 1.3 Implement `SeedCategories()` in the store: insert 4 categories with translations for de/en, idempotent
 - [~] 1.4 Implement `AssignDefaultCategories()` in the store: assign category_id and highlighted flag to existing landmarks
 - [~] 1.5 Update application startup to call `SeedCategories()` and `AssignDefaultCategories()` after migrations
 

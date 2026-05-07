@@ -1,9 +1,13 @@
-.PHONY: run dev build test test-visual deps clean docker lint
+.PHONY: run dev build test test-visual deps clean docker lint deploy
 
 # Application
 APP_NAME := heidelberg-guide
 BINARY := bin/server
 CMD := ./cmd/server
+
+# Deployment
+DEPLOY_HOST ?= gimmebytes-apps-prod
+CONTAINER_NAME := $(APP_NAME)
 
 # URLs for frontend dependencies
 HTMX_URL := https://unpkg.com/htmx.org/dist/htmx.min.js
@@ -50,3 +54,10 @@ test-visual:
 ## docker: Build the Docker image
 docker:
 	docker build -t $(APP_NAME) .
+
+## deploy: Build Docker image and deploy to remote host via SSH
+deploy: docker
+	docker save $(APP_NAME):latest | gzip | ssh $(DEPLOY_HOST) "gunzip | docker load"
+	ssh $(DEPLOY_HOST) "docker stop $(CONTAINER_NAME) 2>/dev/null || true"
+	ssh $(DEPLOY_HOST) "docker rm $(CONTAINER_NAME) 2>/dev/null || true"
+	ssh $(DEPLOY_HOST) "docker run -d --restart unless-stopped --name $(CONTAINER_NAME) -p 8080:8080 $(APP_NAME):latest"

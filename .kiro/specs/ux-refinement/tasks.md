@@ -17,7 +17,7 @@
 ## Task 3: Handler & Template Infrastructure
 
 - [~] 3.1 Register `categoryColorClass` template function in the handler's template FuncMap
-- [~] 3.2 Update `PageData` struct to use `[]model.LandmarkView` and `*model.LandmarkView`
+- [-] 3.2 Update `PageData` struct to use `[]model.LandmarkView` and `*model.LandmarkView`
 - [~] 3.3 Add new i18n labels: `learn_more`, `home`, `highlight` for both de and en locales
 - [~] 3.4 Write unit test for `categoryColorClass` (all valid colors + unknown fallback)
 

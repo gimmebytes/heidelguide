@@ -28,8 +28,8 @@ func New(s *store.Store, templates map[string]*template.Template, labels map[str
 type PageData struct {
 	Labels    map[string]string
 	Locale    string
-	Landmarks []model.LandmarkWithTranslation
-	Landmark  *model.LandmarkWithTranslation
+	Landmarks []model.LandmarkView
+	Landmark  *model.LandmarkView
 }
 
 // getLocale reads the "lang" cookie from the request, defaulting to "de".

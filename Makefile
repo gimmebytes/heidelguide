@@ -1,4 +1,4 @@
-.PHONY: run build test deps clean docker lint
+.PHONY: run build test test-visual deps clean docker lint
 
 # Application
 APP_NAME := heidelberg-guide
@@ -38,6 +38,10 @@ deps:
 clean:
 	rm -rf bin/
 	rm -f heidelberg.db
+
+## test-visual: Run Playwright visual regression tests
+test-visual:
+	cd tests && npx playwright test
 
 ## docker: Build the Docker image
 docker:

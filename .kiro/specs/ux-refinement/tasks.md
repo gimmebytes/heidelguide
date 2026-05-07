@@ -44,4 +44,4 @@
 
 - [x] 7.1 Run existing unit tests to verify no regressions
 - [x] 7.2 Verify the application builds and starts successfully with `make run`
-- [~] 7.3 Add Playwright visual regression tests: hero section, 4-column grid, category pills, highlight badges, breadcrumb on detail page
+- [x] 7.3 Add Playwright visual regression tests: hero section, 4-column grid, category pills, highlight badges, breadcrumb on detail page

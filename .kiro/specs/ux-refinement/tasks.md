@@ -36,8 +36,8 @@
 
 ## Task 6: Color Palette & Base Template
 
-- [~] 6.1 Update `base.html` nav and body colors to use the warmer, more vibrant palette
-- [~] 6.2 Update footer styling to match the new palette
+- [x] 6.1 Update `base.html` nav and body colors to use the warmer, more vibrant palette
+- [x] 6.2 Update footer styling to match the new palette
 - [~] 6.3 Verify Tailwind classes used (rose, emerald, amber, violet) are available in the existing tailwind.min.css
 
 ## Task 7: Testing & Verification

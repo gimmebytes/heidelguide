@@ -6,7 +6,7 @@
 - [x] 1.2 Update the `model` package: add `Category`, `CategoryTranslation` structs; extend `Landmark` struct with `CategoryID` and `Highlighted` fields; create `LandmarkView` struct
 - [x] 1.3 Implement `SeedCategories()` in the store: insert 4 categories with translations for de/en, idempotent
 - [x] 1.4 Implement `AssignDefaultCategories()` in the store: assign category_id and highlighted flag to existing landmarks
-- [~] 1.5 Update application startup to call `SeedCategories()` and `AssignDefaultCategories()` after migrations
+- [x] 1.5 Update application startup to call `SeedCategories()` and `AssignDefaultCategories()` after migrations
 
 ## Task 2: Store Layer Updates
 

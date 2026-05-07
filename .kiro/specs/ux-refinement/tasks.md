@@ -10,8 +10,8 @@
 
 ## Task 2: Store Layer Updates
 
-- [~] 2.1 Update `ListLandmarks` query to JOIN categories and category_translations, return `[]model.LandmarkView`, order by highlighted DESC then id ASC
-- [~] 2.2 Update `GetLandmark` query to JOIN categories and category_translations, return `*model.LandmarkView`
+- [x] 2.1 Update `ListLandmarks` query to JOIN categories and category_translations, return `[]model.LandmarkView`, order by highlighted DESC then id ASC
+- [-] 2.2 Update `GetLandmark` query to JOIN categories and category_translations, return `*model.LandmarkView`
 - [~] 2.3 Write unit tests for `ListLandmarks` (verify category data populated, highlight ordering) and `GetLandmark` (verify category data)
 
 ## Task 3: Handler & Template Infrastructure

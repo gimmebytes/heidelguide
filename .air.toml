@@ -1,0 +1,20 @@
+# Air configuration for hot-reload development
+# https://github.com/air-verse/air
+
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  cmd = "go build -o ./tmp/main ./cmd/server"
+  bin = "./tmp/main"
+  include_ext = ["go", "html", "css", "js"]
+  include_dir = ["cmd", "internal", "templates", "static"]
+  exclude_dir = ["tmp", "tests", "node_modules", ".git", "vendor"]
+  delay = 1000
+
+[log]
+  time = false
+  main_only = true
+
+[misc]
+  clean_on_exit = true

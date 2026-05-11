@@ -18,8 +18,9 @@ TAILWIND_URL := https://cdn.tailwindcss.com/3.4.17
 run:
 	go run $(CMD)
 
-## dev: Start the application with hot-reload (requires Air)
+## dev: Start the application with hot-reload (requires Air), opens browser when ready
 dev:
+	@(until curl -s http://localhost:8080 > /dev/null 2>&1; do sleep 0.2; done; open http://localhost:8080) &
 	air
 
 ## build: Compile the Go binary to bin/server

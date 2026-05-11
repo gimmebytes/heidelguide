@@ -30,8 +30,8 @@ flowchart TD
         H --> I[Toggle button rendered with correct icon]
         I --> J[User clicks toggle]
         J --> K[Alpine toggles darkMode state]
-        K --> L[x-bind:class adds/removes 'dark' on <html>]
-        K --> M[localStorage.setItem 'theme']
+        K --> L[x-effect toggles 'dark' on <html>]
+        K --> M[x-effect persists to localStorage]
         L --> N[Tailwind dark: variants activate/deactivate]
     end
 ```
@@ -83,15 +83,16 @@ The `<body>` element becomes the Alpine.js component root for theme state:
 
 ```html
 <body x-data="{ darkMode: localStorage.getItem('theme') === 'dark' }"
-      x-init="$watch('darkMode', val => { localStorage.setItem('theme', val ? 'dark' : 'light'); document.documentElement.classList.toggle('dark', val) })"
-      :class="darkMode ? 'dark:bg-stone-900 dark:text-stone-100' : ''"
+      x-effect="localStorage.setItem('theme', darkMode ? 'dark' : 'light'); document.documentElement.classList.toggle('dark', darkMode)"
       class="bg-stone-50 text-stone-800 min-h-screen flex flex-col transition-colors duration-200 ease-in-out">
 ```
 
 **Key behaviors**:
 - `x-data`: Initializes `darkMode` boolean from localStorage
-- `x-init` with `$watch`: Whenever `darkMode` changes, persists to localStorage and toggles the `dark` class on `<html>`
+- `x-effect`: Runs once on init AND re-runs whenever `darkMode` changes — persists to localStorage and toggles the `dark` class on `<html>`. This is preferred over `x-init` + `$watch` because `$watch` has known timing issues on the `<body>` element in Alpine.js 3.x.
 - The `transition-colors duration-200 ease-in-out` class on body provides the smooth animation
+
+**Why `x-effect` over `x-init` + `$watch`**: Alpine's `$watch` registered inside `x-init` on the `<body>` element does not reliably fire on state changes in Alpine.js 3.x. `x-effect` automatically tracks reactive dependencies and re-executes when they change, making it the correct primitive for this use case.
 
 ### 4. Toggle Button Component (in navigation)
 
@@ -99,13 +100,13 @@ The `<body>` element becomes the Alpine.js component root for theme state:
 <button @click="darkMode = !darkMode"
         :aria-label="darkMode ? 'Switch to light mode' : 'Switch to dark mode'"
         role="button"
-        class="p-2 rounded-lg bg-emerald-800 hover:bg-emerald-700 transition-colors">
+        class="px-2 py-1 rounded bg-emerald-800 hover:bg-emerald-700 transition-colors">
   <!-- Moon icon (shown in light mode) -->
-  <svg x-show="!darkMode" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+  <svg x-show="!darkMode" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-amber-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
     <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
   </svg>
   <!-- Sun icon (shown in dark mode) -->
-  <svg x-show="darkMode" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+  <svg x-show="darkMode" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-amber-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
     <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
   </svg>
 </button>
@@ -209,7 +210,7 @@ tests/
 
 All dark mode styling is applied via Tailwind `dark:` variant classes added to existing elements. No structural HTML changes are needed beyond:
 
-1. **`base.html`**: Add FOUC script, Tailwind config script, Alpine.js `x-data`/`x-init` on body, toggle button in nav, transition class on body, dark variants on nav/footer/body
+1. **`base.html`**: Add FOUC script, Tailwind config script, Alpine.js `x-data`/`x-effect` on body, toggle button in nav, transition class on body, dark variants on nav/footer/body
 2. **`landing.html`**: Add `dark:` variant classes to cards, hero overlay, text elements
 3. **`detail.html`**: Add `dark:` variant classes to headings, body text, badges, breadcrumbs, borders
 4. **`404.html`**: Add `dark:` variant classes to heading, description, background

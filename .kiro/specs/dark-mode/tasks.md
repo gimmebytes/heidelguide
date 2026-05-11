@@ -8,9 +8,9 @@ Add a toggleable dark color scheme to the HeidelGuide app using Tailwind CSS cla
 
 - [ ] 1. Foundation: Tailwind dark mode config, FOUC prevention, and Alpine.js body setup
   - [ ] 1.1 Add Tailwind darkMode config, FOUC prevention script, and Alpine.js x-data/x-init on body in `templates/base.html`
-    - Add `tailwind.config` script block before the Tailwind CDN script to set `darkMode: 'class'`
-    - Add inline FOUC prevention IIFE after meta tags that reads localStorage and adds `dark` class to `<html>`
-    - Add `x-data="{ darkMode: localStorage.getItem('theme') === 'dark' }"` and `x-init="$watch('darkMode', val => { localStorage.setItem('theme', val ? 'dark' : 'light'); document.documentElement.classList.toggle('dark', val) })"` to the `<body>` element
+    - Add `tailwind.config` script block **after** the Tailwind CDN script to set `darkMode: 'class'` — IMPORTANT: must be placed after the CDN script, not before, because the CDN overwrites `window.tailwind` on load
+    - Add inline FOUC prevention IIFE after meta tags that reads localStorage and adds `dark` class to `<html>` — must also check `window.matchMedia('(prefers-color-scheme: dark)')` as fallback when no localStorage value exists
+    - Add `x-data="{ darkMode: localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches) }"` to the `<body>` element — put all toggle logic in the `@click` handler (see Task 2.1), do NOT use `x-effect` or `x-init`+`$watch` (unreliable cross-browser)
     - Add `transition-colors duration-200 ease-in-out` to the body class list for smooth theme transitions
     - _Requirements: 1.1, 1.2, 1.3, 2.3, 2.4, 2.8, 3.1, 3.2, 3.3, 3.4, 3.5, 8.1, 8.2, 8.3_
 
@@ -20,16 +20,16 @@ Add a toggleable dark color scheme to the HeidelGuide app using Tailwind CSS cla
     - Add moon SVG icon with `x-show="!darkMode"` (shown in light mode, indicates "switch to dark")
     - Add sun SVG icon with `x-show="darkMode"` (shown in dark mode, indicates "switch to light")
     - Add dynamic `aria-label` via `:aria-label="darkMode ? 'Switch to light mode' : 'Switch to dark mode'"`
-    - Style with `p-2 rounded-lg bg-emerald-800 hover:bg-emerald-700 transition-colors`
+    - Style with `px-2 py-1 rounded bg-emerald-800 hover:bg-emerald-700 transition-colors` (matching language switcher button sizing per navbar-buttons steering guideline)
     - _Requirements: 2.1, 2.2, 2.5, 2.7_
 
 - [ ] 3. Dark styling for base layout (body, nav, footer)
   - [ ] 3.1 Add dark variant classes to body, navigation, and footer elements in `templates/base.html`
     - Add `dark:bg-stone-900 dark:text-stone-100` to the `<body>` element
-    - Add `dark:bg-emerald-950` to the `<nav>` element
-    - Add dark variants to language-switcher buttons: active state `dark:bg-amber-500 dark:text-white` and inactive state `dark:bg-emerald-900 dark:text-stone-300 dark:hover:bg-emerald-800`
-    - Add `dark:bg-emerald-950 dark:text-stone-400` to the `<footer>` element
-    - Ensure footer links remain distinguishable with `dark:text-amber-200/70 dark:hover:text-amber-100`
+    - Add `dark:bg-stone-800` to the `<nav>` element (neutral dark background for better contrast with buttons)
+    - Add dark variants to language-switcher buttons: active state `dark:bg-amber-500 dark:text-white` and inactive state `dark:bg-stone-700 dark:text-stone-300 dark:hover:bg-stone-600`
+    - Add `dark:bg-stone-800 dark:text-stone-400` to the `<footer>` element
+    - Ensure footer links remain distinguishable with `dark:text-amber-400 dark:hover:text-amber-300`
     - _Requirements: 4.1, 4.2, 4.3, 4.4_
 
 - [ ] 4. Dark styling for landing page

@@ -5,7 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{.Labels.app_title}}</title>
     <link rel="icon" type="image/svg+xml" href="/static/img/favicon.svg">
+    <script>
+      (function() {
+        var theme = localStorage.getItem('theme');
+        if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+    <script>
+      window.tailwind = window.tailwind || {};
+      window.tailwind.config = {
+        darkMode: 'class'
+      };
+    </script>
     <script src="/static/js/tailwind-cdn.js"></script>
+    <script>
+      // Re-apply config after CDN loads (CDN overwrites window.tailwind with a Proxy)
+      if (window.tailwind && window.tailwind.config !== undefined) {
+        window.tailwind.config = { darkMode: 'class' };
+      }
+    </script>
     <script src="/static/js/htmx.min.js"></script>
     <script src="/static/js/alpine.min.js" defer></script>
     <style>
@@ -14,21 +34,36 @@
         }
     </style>
 </head>
-<body class="bg-stone-50 text-stone-800 min-h-screen flex flex-col">
+<body x-data="{ darkMode: localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches) }"
+      class="bg-stone-50 text-stone-800 dark:bg-stone-900 dark:text-stone-100 min-h-screen flex flex-col transition-colors duration-200 ease-in-out">
     <!-- Navigation -->
-    <nav class="bg-emerald-900 text-amber-50 shadow-md">
+    <nav class="bg-emerald-900 dark:bg-stone-900 text-amber-50 shadow-md">
         <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
             <a href="/" class="font-serif-accent text-xl font-bold tracking-wide text-amber-200 hover:text-amber-100 transition-colors">
                 Heidelguide
             </a>
             <div class="flex items-center gap-4">
+                <!-- Dark mode toggle -->
+                <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light'); document.documentElement.classList.toggle('dark', darkMode)"
+                        :aria-label="darkMode ? 'Switch to light mode' : 'Switch to dark mode'"
+                        role="button"
+                        class="p-2 rounded-lg bg-emerald-800 dark:bg-stone-800 hover:bg-emerald-700 dark:hover:bg-stone-700 transition-colors">
+                    <!-- Moon icon (shown in light mode, indicates "switch to dark") -->
+                    <svg x-show="!darkMode" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                    <!-- Sun icon (shown in dark mode, indicates "switch to light") -->
+                    <svg x-show="darkMode" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                </button>
                 <form method="POST" action="/language" class="flex items-center gap-1">
                     <button type="submit" name="locale" value="de"
-                        class="px-2 py-1 text-sm rounded transition-colors {{if eq .Locale "de"}}bg-amber-600 text-white font-semibold{{else}}bg-emerald-800 text-stone-300 hover:bg-emerald-700{{end}}">
+                        class="px-2 py-1 text-sm rounded transition-colors {{if eq .Locale "de"}}bg-amber-600 text-white font-semibold dark:bg-amber-500 dark:text-white{{else}}bg-emerald-800 text-stone-300 hover:bg-emerald-700 dark:bg-stone-800 dark:text-stone-300 dark:hover:bg-stone-700{{end}}">
                         DE
                     </button>
                     <button type="submit" name="locale" value="en"
-                        class="px-2 py-1 text-sm rounded transition-colors {{if eq .Locale "en"}}bg-amber-600 text-white font-semibold{{else}}bg-emerald-800 text-stone-300 hover:bg-emerald-700{{end}}">
+                        class="px-2 py-1 text-sm rounded transition-colors {{if eq .Locale "en"}}bg-amber-600 text-white font-semibold dark:bg-amber-500 dark:text-white{{else}}bg-emerald-800 text-stone-300 hover:bg-emerald-700 dark:bg-stone-800 dark:text-stone-300 dark:hover:bg-stone-700{{end}}">
                         EN
                     </button>
                 </form>
@@ -42,10 +77,10 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-emerald-900 text-stone-400 py-6 mt-12">
+    <footer class="bg-emerald-900 dark:bg-stone-900 text-stone-400 dark:text-stone-400 py-6 mt-12">
         <div class="max-w-7xl mx-auto px-4 text-center text-sm space-y-1">
             <p>Heidelguide: A demo app for Spec-Driven Development</p>
-            <p>Built with <a href="https://kiro.dev" target="_blank" rel="noopener" class="text-amber-200/70 hover:text-amber-100 underline">Kiro</a> &middot; Hosted on <a href="https://www.digitalocean.com" target="_blank" rel="noopener" class="text-amber-200/70 hover:text-amber-100 underline">DigitalOcean</a> &middot; Source on <a href="https://github.com/gimmebytes/heidelguide" target="_blank" rel="noopener" class="text-amber-200/70 hover:text-amber-100 underline">GitHub</a></p>
+            <p>Built with <a href="https://kiro.dev" target="_blank" rel="noopener" class="text-amber-200/70 hover:text-amber-100 dark:text-amber-200/70 dark:hover:text-amber-100 underline">Kiro</a> &middot; Hosted on <a href="https://www.digitalocean.com" target="_blank" rel="noopener" class="text-amber-200/70 hover:text-amber-100 dark:text-amber-200/70 dark:hover:text-amber-100 underline">DigitalOcean</a> &middot; Source on <a href="https://github.com/gimmebytes/heidelguide" target="_blank" rel="noopener" class="text-amber-200/70 hover:text-amber-100 dark:text-amber-200/70 dark:hover:text-amber-100 underline">GitHub</a></p>
         </div>
     </footer>
 </body>

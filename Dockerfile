@@ -1,10 +1,12 @@
-# Stage 1: Build
-FROM golang:alpine AS builder
+# Stage 1: Build natively (cross-compile for target platform)
+FROM --platform=$BUILDPLATFORM golang:alpine AS builder
+ARG TARGETOS
+ARG TARGETARCH
 WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
-RUN CGO_ENABLED=0 go build -o server ./cmd/server
+RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o server ./cmd/server
 
 # Stage 2: Runtime
 FROM alpine:3.19

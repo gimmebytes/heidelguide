@@ -1,7 +1,7 @@
 .PHONY: run dev build test test-visual deps clean docker lint deploy
 
 # Application
-APP_NAME := heidelberg-guide
+APP_NAME := heidelguide
 BINARY := bin/server
 CMD := ./cmd/server
 

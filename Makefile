@@ -5,9 +5,13 @@ APP_NAME := heidelguide
 BINARY := bin/server
 CMD := ./cmd/server
 
-# Deployment
+# Deployment (SSH)
 DEPLOY_HOST ?= gimmebytes-apps-prod
 CONTAINER_NAME := $(APP_NAME)
+
+# Deployment (Scaleway Serverless Containers)
+SCW_REGISTRY ?= $(error SCW_REGISTRY is not set – add it to .envrc)
+SCW_CONTAINER_ID ?= $(error SCW_CONTAINER_ID is not set – add it to .envrc)
 
 # URLs for frontend dependencies
 HTMX_URL := https://unpkg.com/htmx.org/dist/htmx.min.js
@@ -62,3 +66,8 @@ deploy: docker
 	ssh $(DEPLOY_HOST) "docker stop $(CONTAINER_NAME) 2>/dev/null || true"
 	ssh $(DEPLOY_HOST) "docker rm $(CONTAINER_NAME) 2>/dev/null || true"
 	ssh $(DEPLOY_HOST) "docker run -d --restart unless-stopped --name $(CONTAINER_NAME) -p 8080:8080 $(APP_NAME):latest"
+
+## deploy-scw: Build amd64 image, push to Scaleway registry, redeploy container
+deploy-scw:
+	docker buildx build --platform=linux/amd64 -t $(SCW_REGISTRY)/$(APP_NAME):latest --push .
+	scw container container redeploy container-id=$(SCW_CONTAINER_ID)

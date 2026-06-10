@@ -44,17 +44,24 @@ func setupTestHandler(t *testing.T) *handler.Handler {
 	// Define template functions (must match main.go).
 	funcMap := template.FuncMap{
 		"categoryColorClass": handler.CategoryColorClass,
+		"seq":                handler.Seq,
+		"ratingFor":          handler.RatingFor,
 	}
 
 	// Parse templates — paths relative to project root (tests run from package dir).
 	templatesDir := filepath.Join("..", "..", "templates")
 	baseFile := filepath.Join(templatesDir, "base.html")
+	ratingWidget := filepath.Join(templatesDir, "partials", "rating_widget.html")
 
 	templates := make(map[string]*template.Template)
 	pages := []string{"landing.html", "detail.html", "404.html"}
 	for _, page := range pages {
 		pageFile := filepath.Join(templatesDir, page)
-		tmpl, err := template.New(page).Funcs(funcMap).ParseFiles(baseFile, pageFile)
+		parseFiles := []string{baseFile, pageFile}
+		if page == "detail.html" {
+			parseFiles = append(parseFiles, ratingWidget)
+		}
+		tmpl, err := template.New(page).Funcs(funcMap).ParseFiles(parseFiles...)
 		if err != nil {
 			t.Fatalf("failed to parse template %s: %v", page, err)
 		}
@@ -93,8 +100,8 @@ func TestLanding_Returns200WithLandmarkContent(t *testing.T) {
 		t.Error("expected landing page to contain 'Alte Brücke'")
 	}
 	// Verify the page title is rendered.
-	if !strings.Contains(body, "Heidelberg Guide") {
-		t.Error("expected landing page to contain 'Heidelberg Guide'")
+	if !strings.Contains(body, "Heidelguide") {
+		t.Error("expected landing page to contain 'Heidelguide'")
 	}
 }
 

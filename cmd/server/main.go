@@ -61,22 +61,38 @@ func main() {
 	// Define template functions.
 	funcMap := template.FuncMap{
 		"categoryColorClass": handler.CategoryColorClass,
+		"seq":                handler.Seq,
+		"ratingFor":          handler.RatingFor,
 	}
 
 	// Parse templates - each page template is combined with base.html.
 	templates := make(map[string]*template.Template)
 	baseFile := filepath.Join("templates", "base.html")
+	ratingWidget := filepath.Join("templates", "partials", "rating_widget.html")
 
 	pages := []string{"landing.html", "detail.html", "404.html"}
 	for _, page := range pages {
 		pageFile := filepath.Join("templates", page)
-		t, err := template.New(page).Funcs(funcMap).ParseFiles(baseFile, pageFile)
+		parseFiles := []string{baseFile, pageFile}
+		// Include partials for pages that need them.
+		if page == "detail.html" {
+			parseFiles = append(parseFiles, ratingWidget)
+		}
+		t, err := template.New(page).Funcs(funcMap).ParseFiles(parseFiles...)
 		if err != nil {
 			slog.Error("failed to parse template", "file", page, "error", err)
 			os.Exit(1)
 		}
 		templates[page] = t
 	}
+
+	// Also parse rating widget as standalone template for HTMX partial responses.
+	ratingTmpl, err := template.New("rating_widget.html").Funcs(funcMap).ParseFiles(ratingWidget)
+	if err != nil {
+		slog.Error("failed to parse rating widget template", "error", err)
+		os.Exit(1)
+	}
+	templates["rating_widget.html"] = ratingTmpl
 
 	// Create handler with dependencies.
 	h := handler.New(s, templates, i18n.Labels())
@@ -89,6 +105,7 @@ func main() {
 
 	r.Get("/", h.Landing)
 	r.Get("/landmarks/{id}", h.Detail)
+	r.Post("/landmarks/{id}/rating", h.SubmitRating)
 	r.Post("/language", h.SwitchLanguage)
 
 	// Serve static files.

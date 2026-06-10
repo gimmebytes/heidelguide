@@ -28,6 +28,11 @@
     </script>
     <script src="/static/js/htmx.min.js"></script>
     <script src="/static/js/alpine.min.js" defer></script>
+    <script>
+      if (!localStorage.getItem('device_id')) {
+        localStorage.setItem('device_id', crypto.randomUUID());
+      }
+    </script>
     <style>
         .font-serif-accent {
             font-family: Georgia, 'Times New Roman', serif;

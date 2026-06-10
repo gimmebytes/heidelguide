@@ -1,5 +1,11 @@
 package handler
 
+import (
+	"fmt"
+
+	"github.com/heidelguide/heidelguide/internal/store"
+)
+
 // CategoryColorClass maps a category color slug to Tailwind CSS classes for the pill.
 func CategoryColorClass(color string) string {
 	colors := map[string]string{
@@ -12,4 +18,25 @@ func CategoryColorClass(color string) string {
 		return cls
 	}
 	return "bg-stone-100 text-stone-700"
+}
+
+// Seq returns a slice of integers from start to end (inclusive).
+func Seq(start, end int) []int {
+	s := make([]int, 0, end-start+1)
+	for i := start; i <= end; i++ {
+		s = append(s, i)
+	}
+	return s
+}
+
+// RatingFor returns the formatted average rating for a landmark ID, or empty string if none.
+func RatingFor(ratings map[int64]*store.RatingSummary, id int64) string {
+	if ratings == nil {
+		return ""
+	}
+	r, ok := ratings[id]
+	if !ok || r.Count == 0 {
+		return ""
+	}
+	return fmt.Sprintf("%.1f", r.Average)
 }

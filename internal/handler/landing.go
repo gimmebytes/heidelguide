@@ -10,10 +10,12 @@ func (h *Handler) Landing(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		return
 	}
+	ratings, _ := h.Store.GetAllRatingSummaries()
 	data := PageData{
 		Labels:    h.Labels[locale],
 		Locale:    locale,
 		Landmarks: landmarks,
+		Ratings:   ratings,
 	}
 	tmpl, ok := h.Templates["landing.html"]
 	if !ok {

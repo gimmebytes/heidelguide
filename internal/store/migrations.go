@@ -35,4 +35,14 @@ var migrations = []string{
 	)`,
 	`ALTER TABLE landmarks ADD COLUMN category_id INTEGER REFERENCES categories(id) DEFAULT 1`,
 	`ALTER TABLE landmarks ADD COLUMN highlighted INTEGER NOT NULL DEFAULT 0`,
+	`CREATE TABLE IF NOT EXISTS ratings (
+		id          INTEGER PRIMARY KEY AUTOINCREMENT,
+		landmark_id INTEGER NOT NULL,
+		device_id   TEXT NOT NULL,
+		score       INTEGER NOT NULL CHECK(score >= 1 AND score <= 5),
+		created_at  TEXT NOT NULL DEFAULT (datetime('now')),
+		updated_at  TEXT NOT NULL DEFAULT (datetime('now')),
+		FOREIGN KEY (landmark_id) REFERENCES landmarks(id),
+		UNIQUE(landmark_id, device_id)
+	)`,
 }

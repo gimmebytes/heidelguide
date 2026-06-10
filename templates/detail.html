@@ -57,6 +57,9 @@
         <!-- Description -->
         <section class="mb-8">
             <h2 class="font-serif-accent text-xl font-semibold text-stone-700 dark:text-stone-100 mb-3">{{.Labels.description}}</h2>
+
+            {{template "rating_widget" .}}
+
             <p class="text-stone-600 dark:text-stone-300 leading-relaxed text-base">
                 {{.Landmark.Description}}
             </p>

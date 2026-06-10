@@ -1,0 +1,31 @@
+{{define "rating_widget"}}
+<div id="rating-widget"
+     x-data="{ hoverScore: 0, userScore: {{if .Rating}}{{.Rating.UserScore}}{{else}}0{{end}}, avgScore: {{if and .Rating (gt .Rating.Count 0)}}{{printf "%.1f" .Rating.Average}}{{else}}0{{end}} }"
+     class="flex items-center gap-4 my-4">
+    <div class="flex gap-1" @mouseleave="hoverScore = 0">
+        {{range $i := seq 1 5}}
+        <button
+            @mouseenter="hoverScore = {{$i}}"
+            @click="userScore = {{$i}}"
+            hx-post="/landmarks/{{$.Landmark.Landmark.ID}}/rating"
+            hx-vals='{"score": "{{$i}}"}'
+            hx-headers='js:{"X-Device-ID": localStorage.getItem("device_id")}'
+            hx-target="#rating-widget"
+            hx-swap="outerHTML"
+            :class="(hoverScore >= {{$i}} || (!hoverScore && userScore >= {{$i}}) || (!hoverScore && !userScore && avgScore >= {{$i}})) ? 'text-amber-400' : 'text-stone-300 dark:text-stone-500'"
+            class="cursor-pointer transition-colors p-0.5"
+            aria-label="{{$i}} Sterne vergeben"
+            role="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </button>
+        {{end}}
+    </div>
+    <span class="text-sm text-stone-600 dark:text-stone-400">
+        {{if and .Rating (gt .Rating.Count 0)}}
+            {{printf "%.1f" .Rating.Average}} ({{.Rating.Count}})
+        {{else}}
+            {{if .Labels}}{{index .Labels "no_ratings"}}{{else}}Noch keine Bewertungen{{end}}
+        {{end}}
+    </span>
+</div>
+{{end}}

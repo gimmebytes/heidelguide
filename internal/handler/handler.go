@@ -30,6 +30,8 @@ type PageData struct {
 	Locale    string
 	Landmarks []model.LandmarkView
 	Landmark  *model.LandmarkView
+	Rating    *store.RatingSummary
+	Ratings   map[int64]*store.RatingSummary
 }
 
 // getLocale reads the "lang" cookie from the request, defaulting to "de".

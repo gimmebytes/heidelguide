@@ -27,10 +27,14 @@ func (h *Handler) Detail(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	deviceID := r.Header.Get("X-Device-ID")
+	rating, _ := h.Store.GetRatingSummary(id, deviceID)
+
 	data := PageData{
 		Labels:   h.Labels[locale],
 		Locale:   locale,
 		Landmark: landmark,
+		Rating:   rating,
 	}
 
 	tmpl, ok := h.Templates["detail.html"]

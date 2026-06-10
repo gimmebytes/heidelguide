@@ -10,8 +10,9 @@ inclusion: always
 - Keep the overall layout clean and contemporary
 
 ## Color & Mode
-- **Light mode only** — do not implement dark mode upfront
+- **Light and dark mode** — dark mode is implemented via Tailwind class-based strategy (`darkMode: 'class'`) with an Alpine.js toggle and localStorage persistence
 - Use a warm, inviting color palette that evokes Heidelberg's sandstone architecture and natural surroundings
+- All new UI components must include appropriate `dark:` variant classes to remain consistent with the existing dark mode implementation
 
 ## Typography & Style
 - Use readable, modern fonts with optional serif accents for historic character

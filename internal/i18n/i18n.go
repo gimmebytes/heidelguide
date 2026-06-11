@@ -19,6 +19,7 @@ var labels = map[string]map[string]string{
 		"home":           "Startseite",
 		"highlight":      "Highlight",
 		"no_ratings":     "Noch keine Bewertungen",
+		"rating":         "Bewertung",
 	},
 	"en": {
 		"app_title":      "Heidelguide",
@@ -33,5 +34,6 @@ var labels = map[string]map[string]string{
 		"home":           "Home",
 		"highlight":      "Highlight",
 		"no_ratings":     "No ratings yet",
+		"rating":         "Rating",
 	},
 }

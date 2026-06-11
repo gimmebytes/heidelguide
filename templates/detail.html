@@ -40,30 +40,27 @@
             {{.Landmark.Name}}
         </h1>
 
-        <!-- Metadata -->
-        <div class="flex flex-wrap gap-4 mb-8 text-sm text-stone-600">
-            {{if gt .Landmark.YearBuilt 0}}
-            <span class="inline-flex items-center bg-amber-100 text-amber-800 dark:bg-stone-700 dark:text-stone-200 px-3 py-1 rounded-full">
-                {{.Labels.year_built}}: {{.Landmark.YearBuilt}}
-            </span>
-            {{end}}
-            {{if .Landmark.YearDestroyed}}
-            <span class="inline-flex items-center bg-stone-200 text-stone-700 dark:bg-stone-700 dark:text-stone-200 px-3 py-1 rounded-full">
-                {{.Labels.year_destroyed}}: {{.Landmark.YearDestroyed}}
-            </span>
-            {{end}}
-        </div>
-
-        <!-- Grid: Main Content + Map Sidebar -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Grid: Main Content + Sidebar -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Main Content -->
-            <div class="lg:col-span-2">
+            <div class="md:col-span-2">
+                <!-- Metadata -->
+                <div class="flex flex-wrap gap-4 mb-6 text-sm text-stone-600">
+                    {{if gt .Landmark.YearBuilt 0}}
+                    <span class="inline-flex items-center bg-amber-100 text-amber-800 dark:bg-stone-700 dark:text-stone-200 px-3 py-1 rounded-full">
+                        {{.Labels.year_built}}: {{.Landmark.YearBuilt}}
+                    </span>
+                    {{end}}
+                    {{if .Landmark.YearDestroyed}}
+                    <span class="inline-flex items-center bg-stone-200 text-stone-700 dark:bg-stone-700 dark:text-stone-200 px-3 py-1 rounded-full">
+                        {{.Labels.year_destroyed}}: {{.Landmark.YearDestroyed}}
+                    </span>
+                    {{end}}
+                </div>
+
                 <!-- Description -->
                 <section class="mb-8">
                     <h2 class="font-serif-accent text-xl font-semibold text-stone-700 dark:text-stone-100 mb-3">{{.Labels.description}}</h2>
-
-                    {{template "rating_widget" .}}
-
                     <p class="text-stone-600 dark:text-stone-300 leading-relaxed text-base">
                         {{.Landmark.Description}}
                     </p>
@@ -77,36 +74,46 @@
                     </p>
                 </section>
 
-                <!-- Back link -->
-                <div class="pt-6 border-t border-stone-200 dark:border-stone-700">
-                    <a href="/" class="inline-flex items-center text-amber-700 hover:text-amber-900 transition-colors font-medium">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-                        </svg>
-                        {{.Labels.back}}
-                    </a>
-                </div>
             </div>
 
-            <!-- Map Sidebar -->
-            <aside class="lg:col-span-1">
-                <section class="lg:sticky lg:top-8">
-                    <link rel="stylesheet" href="/static/css/leaflet.css">
-                    <div id="map" class="h-36 lg:h-48 w-full rounded-xl border border-stone-200 dark:border-stone-700 z-0"></div>
-                    <script src="/static/js/leaflet.js"></script>
-                    <script>
-                        (function() {
-                            L.Icon.Default.imagePath = '/static/img/';
-                            var map = L.map('map').setView([{{.Landmark.Latitude}}, {{.Landmark.Longitude}}], 16);
-                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-                                maxZoom: 19
-                            }).addTo(map);
-                            L.marker([{{.Landmark.Latitude}}, {{.Landmark.Longitude}}]).addTo(map);
-                        })();
-                    </script>
-                </section>
+            <!-- Sidebar: Map + Rating -->
+            <aside class="md:col-span-1">
+                <div class="md:sticky md:top-8 space-y-6">
+                    <!-- Map -->
+                    <div>
+                        <link rel="stylesheet" href="/static/css/leaflet.css">
+                        <div id="map" class="h-48 w-full rounded-xl border border-stone-200 dark:border-stone-700 z-0"></div>
+                        <script src="/static/js/leaflet.js"></script>
+                        <script>
+                            (function() {
+                                L.Icon.Default.imagePath = '/static/img/';
+                                var map = L.map('map').setView([{{.Landmark.Latitude}}, {{.Landmark.Longitude}}], 16);
+                                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                                    maxZoom: 19
+                                }).addTo(map);
+                                L.marker([{{.Landmark.Latitude}}, {{.Landmark.Longitude}}]).addTo(map);
+                            })();
+                        </script>
+                    </div>
+
+                    <!-- Rating -->
+                    <div class="bg-stone-50 dark:bg-stone-800 rounded-xl p-4 border border-stone-200 dark:border-stone-700">
+                        <h3 class="text-sm font-semibold text-stone-700 dark:text-stone-300 mb-2">{{.Labels.rating}}</h3>
+                        {{template "rating_widget" .}}
+                    </div>
+                </div>
             </aside>
+        </div>
+
+        <!-- Back link -->
+        <div class="mt-8 pt-6 border-t border-stone-200 dark:border-stone-700">
+            <a href="/" class="inline-flex items-center text-amber-700 hover:text-amber-900 transition-colors font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+                {{.Labels.back}}
+            </a>
         </div>
 
     </div>

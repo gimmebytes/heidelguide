@@ -1,4 +1,4 @@
-.PHONY: run dev build test test-visual deps clean docker lint deploy
+.PHONY: run dev build test test-visual deps clean docker lint deploy deploy-preview deploy-scw
 
 # Application
 APP_NAME := heidelguide
@@ -9,9 +9,11 @@ CMD := ./cmd/server
 DEPLOY_HOST ?= gimmebytes-apps-prod
 CONTAINER_NAME := $(APP_NAME)
 
-# Deployment (Scaleway Serverless Containers)
-SCW_REGISTRY ?= $(error SCW_REGISTRY is not set – add it to .envrc)
-SCW_CONTAINER_ID ?= $(error SCW_CONTAINER_ID is not set – add it to .envrc)
+# Deployment (Scaleway Serverless Containers) — auto-detected from scw CLI when logged in
+SCW_CONTAINERS := $(shell scw container container list -o json 2>/dev/null)
+SCW_REGISTRY ?= $(shell echo '$(SCW_CONTAINERS)' | jq -r '.[0].image | sub("/[^/]+:[^/]+$$";"")' 2>/dev/null)
+SCW_CONTAINER_ID ?= $(shell echo '$(SCW_CONTAINERS)' | jq -r '.[] | select(.name=="$(APP_NAME)") | .id' 2>/dev/null)
+SCW_PREVIEW_CONTAINER_ID ?= $(shell echo '$(SCW_CONTAINERS)' | jq -r '.[] | select(.name=="$(APP_NAME)-preview") | .id' 2>/dev/null)
 
 # URLs for frontend dependencies
 HTMX_URL := https://unpkg.com/htmx.org/dist/htmx.min.js
@@ -66,6 +68,11 @@ deploy: docker
 	ssh $(DEPLOY_HOST) "docker stop $(CONTAINER_NAME) 2>/dev/null || true"
 	ssh $(DEPLOY_HOST) "docker rm $(CONTAINER_NAME) 2>/dev/null || true"
 	ssh $(DEPLOY_HOST) "docker run -d --restart unless-stopped --name $(CONTAINER_NAME) -p 8080:8080 $(APP_NAME):latest"
+
+## deploy-preview: Build amd64 image as :preview tag, push to Scaleway registry, redeploy preview container
+deploy-preview:
+	docker buildx build --platform=linux/amd64 -t $(SCW_REGISTRY)/$(APP_NAME):preview --push .
+	scw container container redeploy container-id=$(SCW_PREVIEW_CONTAINER_ID)
 
 ## deploy-scw: Build amd64 image, push to Scaleway registry, redeploy container
 deploy-scw:
